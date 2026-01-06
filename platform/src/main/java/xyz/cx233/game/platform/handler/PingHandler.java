@@ -14,14 +14,18 @@ public class PingHandler implements WsHandler {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Override
-    public void handle(WsMessage message, WebSocketSession session) throws Exception {
+    public void handle(WsMessage message, WebSocketSession session)
+            throws Exception {
+
         WsMessage pong = new WsMessage();
         pong.setType(WsType.PONG);
         pong.setRequestId(message.getRequestId());
+        pong.setUserId(message.getUserId());
         pong.setTimestamp(System.currentTimeMillis());
 
         session.sendMessage(
                 new TextMessage(mapper.writeValueAsString(pong))
         );
     }
+
 }

@@ -1,6 +1,7 @@
 package xyz.cx233.game.platform.room;
 
 import lombok.Data;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.util.Collection;
 import java.util.List;
@@ -44,18 +45,46 @@ public class Room {
         }
     }
 
-    public boolean allReady() {
+    public boolean allReadyAndConnected() {
         return players.values().stream()
-                .allMatch(Player::isReady);
+                .allMatch(p -> p.isReady() && p.isConnected());
     }
 
     public List<PlayerState> buildPlayerStates() {
         return players.values().stream()
                 .map(p -> new PlayerState(
                         p.getUserId(),
-                        p.isReady()
+                        p.isReady(),
+                        p.isConnected()
                 ))
                 .collect(Collectors.toList());
     }
 
+    public void onDisconnect(String userId) {
+        Player p = players.get(userId);
+        if (p != null) {
+            p.setConnected(false);
+            p.setLastSeen(System.currentTimeMillis());
+        }
+    }
+
+    public void onReconnect(String userId, WebSocketSession session) {
+        Player p = players.get(userId);
+        if (p != null) {
+            p.setSession(session);
+            p.setConnected(true);
+        }
+    }
+
+    public void sweepOffline(long timeoutMs) {
+        long now = System.currentTimeMillis();
+        players.values().removeIf(p ->
+                !p.isConnected()
+                        && now - p.getLastSeen() > timeoutMs
+        );
+    }
+
+    public boolean hasPlayer(String userId) {
+        return players.containsKey(userId);
+    }
 }

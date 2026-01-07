@@ -1,6 +1,5 @@
 package xyz.cx233.game.platform.handler;
 
-import xyz.cx233.game.platform.handler.process.RoomStateProcess;
 import xyz.cx233.game.platform.protocol.WsMessage;
 import xyz.cx233.game.platform.protocol.WsType;
 import xyz.cx233.game.platform.room.*;
@@ -12,7 +11,7 @@ import org.springframework.web.socket.WebSocketSession;
 import java.util.stream.Collectors;
 
 @Component
-public class JoinRoomHandler implements WsHandler, RoomStateProcess {
+public class JoinRoomHandler implements WsHandler {
 
     private final RoomManager roomManager;
 
@@ -35,10 +34,11 @@ public class JoinRoomHandler implements WsHandler, RoomStateProcess {
         }
 
         if (!room.contains(userId)) {
-            room.addPlayer(new Player(userId, session, false));
+            room.addPlayer(new Player(userId, session, false, true, System.currentTimeMillis()));
+        }else{
+            room.onReconnect(userId, session);
         }
-
-        broadcastRoomState(room);
+        roomManager.broadcastRoomState(room);
     }
 
 }

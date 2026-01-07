@@ -41,7 +41,7 @@ public class StartGameHandler implements WsHandler {
         if (room.getState() != RoomState.WAITING) return;
 
         // ③ 全员准备校验
-        if (!room.allReady()) {
+        if (!room.allReadyAndConnected()) {
             sendError(session, "NOT_ALL_READY");
             return;
         }

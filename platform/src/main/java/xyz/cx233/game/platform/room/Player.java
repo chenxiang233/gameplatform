@@ -10,4 +10,7 @@ public class Player {
     private String userId;
     private WebSocketSession session;
     private boolean ready;
+
+    private boolean connected;
+    private long lastSeen;
 }

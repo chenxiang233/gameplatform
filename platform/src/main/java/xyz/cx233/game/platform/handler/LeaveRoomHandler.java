@@ -1,6 +1,5 @@
 package xyz.cx233.game.platform.handler;
 
-import xyz.cx233.game.platform.handler.process.RoomStateProcess;
 import xyz.cx233.game.platform.protocol.WsMessage;
 import xyz.cx233.game.platform.room.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +8,7 @@ import org.springframework.web.socket.WebSocketSession;
 
 
 @Component
-public class LeaveRoomHandler implements WsHandler, RoomStateProcess {
+public class LeaveRoomHandler implements WsHandler {
 
     private final RoomManager roomManager;
 
@@ -34,6 +33,6 @@ public class LeaveRoomHandler implements WsHandler, RoomStateProcess {
             return;
         }
 
-        broadcastRoomState(room);
+        roomManager.broadcastRoomState(room);
     }
 }

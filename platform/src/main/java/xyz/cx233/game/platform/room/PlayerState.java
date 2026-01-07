@@ -8,4 +8,7 @@ import lombok.Data;
 public class PlayerState {
     private String userId;
     private boolean ready;
+
+    private boolean connected;
+
 }

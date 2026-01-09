@@ -20,12 +20,15 @@ public class WsDispatcher {
                         JoinRoomHandler joinRoomHandler,
                         LeaveRoomHandler leaveRoomHandler,
                         ReadyHandler readyHandler,
-                        StartGameHandler startGameHandler) {
+                        StartGameHandler startGameHandler,
+                        GameActionHandler gameActionHandler) {
         handlers.put(WsType.PING, pingHandler);
         handlers.put(WsType.JOIN_ROOM, joinRoomHandler);
         handlers.put(WsType.LEAVE_ROOM, leaveRoomHandler);
         handlers.put(WsType.READY, readyHandler);
         handlers.put(WsType.START_GAME, startGameHandler);
+        handlers.put(WsType.GAME_ACTION, gameActionHandler);
+
     }
 
     public void dispatch(String text, WsSession session) {

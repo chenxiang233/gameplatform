@@ -11,7 +11,11 @@ public enum WsType {
 
     READY,
     START_GAME,
-    GAME_START
+    GAME_START,
+
+    GAME_ACTION,   // 玩家操作
+    GAME_SYNC     // 服务端同步
+
 
 
 }

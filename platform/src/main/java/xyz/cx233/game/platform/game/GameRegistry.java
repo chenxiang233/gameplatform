@@ -1,6 +1,7 @@
 package xyz.cx233.game.platform.game;
 
 import org.springframework.stereotype.Component;
+import xyz.cx233.game.platform.game.api.GameModule;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

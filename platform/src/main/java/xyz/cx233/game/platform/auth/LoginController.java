@@ -13,7 +13,7 @@ public class LoginController {
         this.authService = authService;
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public LoginResult login(@RequestParam String userId) {
         return authService.login(userId);
     }

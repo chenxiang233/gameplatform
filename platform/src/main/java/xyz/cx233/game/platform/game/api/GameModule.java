@@ -1,4 +1,7 @@
-package xyz.cx233.game.platform.game;
+package xyz.cx233.game.platform.game.api;
+
+import xyz.cx233.game.platform.game.GameBroadcaster;
+import xyz.cx233.game.platform.game.GameContext;
 
 public interface GameModule {
 
@@ -26,4 +29,10 @@ public interface GameModule {
      * 游戏结束
      */
     void onStop();
+
+    /**
+     * 获取游戏广播器
+     * @return
+     */
+    GameBroadcaster getBroadcaster();
 }

@@ -5,4 +5,6 @@ public interface GameBroadcaster {
     void broadcast(Object gameState);
 
     void sendTo(String userId, Object msg);
+
+    void sendSnapshot(String gameId, Object snapshot);
 }

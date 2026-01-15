@@ -1,5 +1,6 @@
 package xyz.cx233.game.platform.game;
 
+import xyz.cx233.game.platform.game.api.GameModule;
 import xyz.cx233.game.platform.room.Room;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +18,7 @@ public class GameManager {
         this.gameRegistry = gameRegistry;
     }
 
-    public void startGame(Room room, String gameId,
-                          GameBroadcaster broadcaster) {
+    public void startGame(Room room, String gameId) {
 
         GameModule module = gameRegistry.create(gameId);
         GameContext context = new GameContext(
@@ -28,8 +28,7 @@ public class GameManager {
                         .map(p -> p.getUserId())
                         .toList()
         );
-
-        module.onStart(context, broadcaster);
+        module.onStart(context, new WsGameBroadcaster(room));
 
         runningGames.put(room.getRoomId(),
                 new GameRuntime(room, module));

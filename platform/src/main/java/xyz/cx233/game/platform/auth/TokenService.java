@@ -12,12 +12,22 @@ public class TokenService {
     private final Map<String, String> tokenUserMap = new ConcurrentHashMap<>();
 
     public String generateToken(String userId) {
-        String token = UUID.randomUUID().toString();
+        String token = getToken(userId);
         tokenUserMap.put(token, userId);
         return token;
     }
 
     public String verify(String token) {
-        return tokenUserMap.get(token);
+        return getUserId(token);
+    }
+
+    private String getToken(String userId){
+        //String token = UUID.randomUUID().toString();
+        return userId;
+    }
+
+    private String getUserId(String token){
+        return token;
+//        return tokenUserMap.get(token);
     }
 }

@@ -96,11 +96,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>xyz.cx233.game</groupId>
-            <artifactId>platform</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -118,9 +113,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>xyz.cx233.game.platform.GameplatformApplication</mainClass> <!-- 替换为你的主类 -->
+                    <mainClass>xyz.cx233.game.GameplatformApplication</mainClass> <!-- 替换为你的主类 -->
                     <!-- 强制插件运行时使用 UTF-8 -->
                     <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

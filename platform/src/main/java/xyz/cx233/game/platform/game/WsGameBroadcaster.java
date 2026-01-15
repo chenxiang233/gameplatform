@@ -5,6 +5,8 @@ import xyz.cx233.game.platform.room.Room;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.socket.TextMessage;
 
+import java.util.Map;
+
 public class WsGameBroadcaster implements GameBroadcaster {
 
     private final Room room;
@@ -38,4 +40,19 @@ public class WsGameBroadcaster implements GameBroadcaster {
             // log
         }
     }
+
+    /**
+     * 发送游戏快照
+     * @param gameType 游戏类型
+     * @param snapshot 游戏快照
+     */
+    @Override
+    public void sendSnapshot(String gameType, Object snapshot) {
+        broadcast(Map.of(
+                "type", "GAME_SNAPSHOT",
+                "game", gameType,
+                "state", snapshot
+        ));
+    }
+
 }

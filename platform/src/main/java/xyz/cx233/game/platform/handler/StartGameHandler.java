@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
+import xyz.cx233.game.platform.game.GameBroadcaster;
+import xyz.cx233.game.platform.game.GameManager;
+import xyz.cx233.game.platform.game.WsGameBroadcaster;
 import xyz.cx233.game.platform.protocol.WsMessage;
 import xyz.cx233.game.platform.protocol.WsType;
 import xyz.cx233.game.platform.room.Player;
@@ -16,9 +19,13 @@ public class StartGameHandler implements WsHandler {
 
     private final RoomManager roomManager;
     private final ObjectMapper mapper = new ObjectMapper();
+    private final GameManager gameManager;
 
-    public StartGameHandler(RoomManager roomManager) {
+    public StartGameHandler(RoomManager roomManager,
+                            GameManager gameManager) {
         this.roomManager = roomManager;
+        this.gameManager = gameManager;
+
     }
 
     @Override
@@ -27,7 +34,7 @@ public class StartGameHandler implements WsHandler {
 
         String userId = message.getUserId();
         String roomId = message.getRoomId();
-
+        String gameId = message.getGameId();
         Room room = roomManager.getRoom(roomId);
         if (room == null) return;
 
@@ -47,9 +54,10 @@ public class StartGameHandler implements WsHandler {
         }
 
         // ④ 状态切换
+        gameManager.startGame(room, gameId);
         room.setState(RoomState.PLAYING);
-
         broadcastGameStart(room);
+
     }
 
     private void broadcastGameStart(Room room) throws Exception {

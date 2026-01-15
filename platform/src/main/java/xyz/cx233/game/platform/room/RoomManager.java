@@ -17,8 +17,7 @@ public class RoomManager {
     private final Map<String, Room> rooms = new ConcurrentHashMap<>();
     ObjectMapper mapper = new ObjectMapper();
 
-    public Room createRoom(String ownerId) {
-        String roomId = UUID.randomUUID().toString();
+    public Room createRoom(String roomId, String ownerId) {
         Room room = new Room(roomId, ownerId);
         rooms.put(roomId, room);
         return room;

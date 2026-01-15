@@ -1,0 +1,11 @@
+spring:
+    application.name: gameplatform
+server:
+    port: 14527
+    address: '::'
+#
+#    ssl:
+#        key-store: classpath:game.cx233.xyz.pfx
+#        key-store-password: bayud1630
+#        key-store-type: PKCS12
+#        key-alias: tomcat

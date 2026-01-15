@@ -1,4 +1,4 @@
-package xyz.cx233.game.platform;
+package xyz.cx233.game;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

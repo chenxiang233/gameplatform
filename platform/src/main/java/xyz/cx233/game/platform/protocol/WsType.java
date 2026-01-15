@@ -14,8 +14,24 @@ public enum WsType {
     GAME_START,
 
     GAME_ACTION,   // 玩家操作
-    GAME_SYNC     // 服务端同步
+    GAME_SYNC,     // 服务端同步
+    /**
+     * 游戏快照
+     * {
+     *   "type": "GAME_SNAPSHOT",
+     *   "roomId": "room-001",
+     *   "payload": {
+     *     "game": "tictactoe",
+     *     "state": {
+     *       "board": [...],
+     *       "currentPlayer": "u1001",
+     *       "winner": null
+     *     }
+     *   }
+     * }
+     */
+    GAME_SNAPSHOT,
+    ;
 
 
-
-}
+    }

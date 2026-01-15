@@ -1,7 +1,6 @@
 package xyz.cx233.game.platform.game.api;
 
 
-import xyz.cx233.game.platform.game.GameModule;
 import xyz.cx233.game.platform.game.frame.FrameInput;
 import xyz.cx233.game.platform.game.GameBroadcaster;
 

@@ -2,7 +2,6 @@ spring:
     application.name: gameplatform
 server:
     port: 14527
-    address: '::'
 #
 #    ssl:
 #        key-store: classpath:game.cx233.xyz.pfx

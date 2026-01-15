@@ -1,5 +1,5 @@
 # Dockerfile
-FROM eclipse-temurin:21-jre
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/openjdk:21
 
 WORKDIR /app
 

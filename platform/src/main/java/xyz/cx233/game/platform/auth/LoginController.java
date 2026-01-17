@@ -1,6 +1,7 @@
 package xyz.cx233.game.platform.auth;
 
 import org.springframework.web.bind.annotation.*;
+import xyz.cx233.game.platform.auth.model.UserDto;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -13,8 +14,9 @@ public class LoginController {
         this.authService = authService;
     }
 
-    @GetMapping("/login")
-    public LoginResult login(@RequestParam String userId) {
-        return authService.login(userId);
+    @PostMapping("/login")
+    public LoginResult login(@RequestBody UserDto userDto) {
+        return authService.login(userDto);
     }
+
 }

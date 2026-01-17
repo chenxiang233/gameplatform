@@ -1,5 +1,7 @@
 package xyz.cx233.game.platform.handler;
 
+import xyz.cx233.game.platform.auth.AuthService;
+import xyz.cx233.game.platform.auth.TokenService;
 import xyz.cx233.game.platform.game.GameManager;
 import xyz.cx233.game.platform.game.GameRuntime;
 import xyz.cx233.game.platform.game.api.SnapshotAwareGame;
@@ -20,11 +22,13 @@ public class JoinRoomHandler implements WsHandler {
 
     private final GameManager gameManager;
 
+    private final AuthService authService;
 
 
-    public JoinRoomHandler(RoomManager roomManager, GameManager gameManager) {
+    public JoinRoomHandler(RoomManager roomManager, GameManager gameManager, AuthService authService) {
         this.roomManager = roomManager;
         this.gameManager = gameManager;
+        this.authService = authService;
     }
 
     @Override
@@ -41,7 +45,8 @@ public class JoinRoomHandler implements WsHandler {
         }
 
         if (!room.contains(userId)) {
-            room.addPlayer(new Player(userId, session, false, true, System.currentTimeMillis()));
+            room.addPlayer(new Player(userId, authService.getUser(userId).getImageUrl(),
+                    session, false, true, System.currentTimeMillis()));
         }else{
             room.onReconnect(userId, session);
         }

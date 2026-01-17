@@ -9,6 +9,7 @@ public enum WsType {
     LEAVE_ROOM,
     ROOM_STATE,
 
+    QUERY_USER,
     READY,
     START_GAME,
     GAME_START,

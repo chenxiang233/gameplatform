@@ -8,6 +8,7 @@ import org.springframework.web.socket.WebSocketSession;
 @AllArgsConstructor
 public class Player {
     private String userId;
+    private String imageUrl;
     private WebSocketSession session;
     private boolean ready;
 

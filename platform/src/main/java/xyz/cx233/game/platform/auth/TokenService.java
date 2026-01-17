@@ -22,12 +22,10 @@ public class TokenService {
     }
 
     private String getToken(String userId){
-        //String token = UUID.randomUUID().toString();
-        return userId;
+        return UUID.randomUUID().toString();
     }
 
     private String getUserId(String token){
-        return token;
-//        return tokenUserMap.get(token);
+        return tokenUserMap.get(token);
     }
 }

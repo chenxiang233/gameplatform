@@ -7,6 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class PlayerState {
     private String userId;
+
+    private String imageUrl;
+
     private boolean ready;
 
     private boolean connected;

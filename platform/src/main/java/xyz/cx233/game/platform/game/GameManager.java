@@ -19,7 +19,7 @@ public class GameManager {
     }
 
     public void startGame(Room room, String gameId) {
-
+        gameRegistry.gameStartCheck(gameId, room);
         GameModule module = gameRegistry.create(gameId);
         GameContext context = new GameContext(
                 room.getRoomId(),

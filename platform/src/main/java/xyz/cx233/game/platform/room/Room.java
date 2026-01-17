@@ -20,6 +20,9 @@ public class Room {
 
     public void addPlayer(Player player) {
         players.put(player.getUserId(), player);
+        if(ownerId.equals(player.getUserId())){
+            player.setReady(true);
+        }
     }
 
     public void removePlayer(String userId) {
@@ -54,6 +57,7 @@ public class Room {
         return players.values().stream()
                 .map(p -> new PlayerState(
                         p.getUserId(),
+                        p.getImageUrl(),
                         p.isReady(),
                         p.isConnected()
                 ))

@@ -5,6 +5,7 @@ import xyz.cx233.game.gameimpl.tictactoe.TicTacToeGame;
 import xyz.cx233.game.platform.game.GameModuleFactory;
 import xyz.cx233.game.platform.game.GameRegistry;
 import xyz.cx233.game.platform.game.api.GameModule;
+import xyz.cx233.game.platform.room.Room;
 
 @Component
 public class TicTacToeFactory implements GameModuleFactory {
@@ -22,4 +23,11 @@ public class TicTacToeFactory implements GameModuleFactory {
     public GameModule create() {
         return new TicTacToeGame();
     }
+
+    @Override
+    public void gameStartCheck(Room room) {
+
+    }
+
+
 }

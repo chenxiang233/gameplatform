@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
+import xyz.cx233.game.platform.exception.BaseException;
 import xyz.cx233.game.platform.game.GameBroadcaster;
 import xyz.cx233.game.platform.game.GameManager;
 import xyz.cx233.game.platform.game.WsGameBroadcaster;
@@ -46,15 +47,13 @@ public class StartGameHandler implements WsHandler {
 
         // ② 状态校验
         if (room.getState() != RoomState.WAITING) return;
-
-        // ③ 全员准备校验
-        if (!room.allReadyAndConnected()) {
-            sendError(session, "NOT_ALL_READY");
+        // ④ 状态切换
+        try {
+            gameManager.startGame(room, gameId);
+        } catch (BaseException e) {
+            sendError(session, e.getMessage());
             return;
         }
-
-        // ④ 状态切换
-        gameManager.startGame(room, gameId);
         room.setState(RoomState.PLAYING);
         broadcastGameStart(room);
 

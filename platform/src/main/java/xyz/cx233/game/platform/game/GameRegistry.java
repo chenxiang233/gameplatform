@@ -2,6 +2,7 @@ package xyz.cx233.game.platform.game;
 
 import org.springframework.stereotype.Component;
 import xyz.cx233.game.platform.game.api.GameModule;
+import xyz.cx233.game.platform.room.Room;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,10 +18,18 @@ public class GameRegistry {
     }
 
     public GameModule create(String gameId) {
+        return getFactory(gameId).create();
+    }
+
+    public void gameStartCheck(String gameId, Room room){
+        getFactory(gameId).gameStartCheck(room);
+    }
+
+    private GameModuleFactory getFactory(String gameId){
         GameModuleFactory factory = factories.get(gameId);
         if (factory == null) {
             throw new IllegalArgumentException("Unknown game: " + gameId);
         }
-        return factory.create();
+        return factory;
     }
 }

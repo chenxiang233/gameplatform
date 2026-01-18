@@ -22,7 +22,7 @@ public class WsGameBroadcaster implements GameBroadcaster {
             gameState.put("version", room.getVersion());
             String json = mapper.writeValueAsString(gameState);
             for (Player p : room.allPlayers()) {
-                p.getSession().sendMessage(new TextMessage(json));
+                p.sendMessage(json);
             }
         } catch (Exception e) {
             // log
@@ -35,7 +35,7 @@ public class WsGameBroadcaster implements GameBroadcaster {
             String json = mapper.writeValueAsString(msg);
             Player p = room.getPlayers().get(userId);
             if (p != null) {
-                p.getSession().sendMessage(new TextMessage(json));
+                p.sendMessage(json);
             }
         } catch (Exception e) {
             // log

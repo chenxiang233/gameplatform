@@ -69,7 +69,7 @@ public class StartGameHandler implements WsHandler {
         String json = mapper.writeValueAsString(msg);
 
         for (Player p : room.allPlayers()) {
-            p.getSession().sendMessage(new TextMessage(json));
+            p.sendMessage(json);
         }
     }
 

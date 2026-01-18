@@ -68,15 +68,15 @@ public class Wuziqi
         Map<?, ?> map = (Map<?, ?>) action;
         String type = (String) map.get("type");
         if(type.equals("move")){
-            int[] postion = (int[]) map.get("postion");
-            move(userId, postion);
+            int[] position = (int[]) map.get("position");
+            move(userId, position);
         }
 
     }
 
-    private void move(String userId, int[] postion){
-        int x = postion[0];
-        int y = postion[1];
+    private void move(String userId, int[] position){
+        int x = position[0];
+        int y = position[1];
         if (board[x][y] != null) return;
         board[x][y] = qizi[turnIndex];
         if (checkWin(userId)) {

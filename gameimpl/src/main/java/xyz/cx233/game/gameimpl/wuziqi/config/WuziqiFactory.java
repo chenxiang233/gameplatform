@@ -1,34 +1,36 @@
-package xyz.cx233.game.gameimpl.gogame.config;
+package xyz.cx233.game.gameimpl.wuziqi.config;
 
 import org.springframework.stereotype.Component;
-import xyz.cx233.game.gameimpl.gogame.GoGame;
 import xyz.cx233.game.gameimpl.tictactoe.TicTacToeGame;
+import xyz.cx233.game.gameimpl.wuziqi.Wuziqi;
 import xyz.cx233.game.platform.game.GameModuleFactory;
 import xyz.cx233.game.platform.game.GameRegistry;
 import xyz.cx233.game.platform.game.api.GameModule;
 import xyz.cx233.game.platform.room.Room;
 
 @Component
-public class GoGameFactory implements GameModuleFactory {
+public class WuziqiFactory implements GameModuleFactory {
 
-    private static int minPlayers = 2;
-
-    public GoGameFactory(GameRegistry registry) {
+    private static final int MIN_PLAYERS = 2;
+    public WuziqiFactory(GameRegistry registry) {
         registry.register(this);
     }
 
     @Override
     public String gameId() {
-        return "gogame";
+        return "wuziqi";
     }
 
     @Override
     public GameModule create() {
-        return new GoGame();
+        return new Wuziqi();
     }
+
     @Override
     public void gameStartCheck(Room room) {
         allReadyCheck(room);
-        minPlayersCheck(room, minPlayers);
+        minPlayersCheck(room, MIN_PLAYERS);
     }
+
+
 }

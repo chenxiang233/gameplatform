@@ -1,4 +1,6 @@
-package xyz.cx233.game.gameimpl.gogame;
+package xyz.cx233.game.gameimpl.wuziqi;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import xyz.cx233.game.platform.game.GameContext;
 import xyz.cx233.game.platform.game.api.GameModule;
 import xyz.cx233.game.platform.game.api.SnapshotAwareGame;
@@ -8,21 +10,24 @@ import xyz.cx233.game.platform.game.GameBroadcaster;
 import java.util.List;
 import java.util.Map;
 
-public class GoGame
+
+public class Wuziqi
         implements GameModule, TurnBasedGame, SnapshotAwareGame {
 
+    private static final Logger log = LoggerFactory.getLogger(Wuziqi.class);
     private GameBroadcaster broadcaster;
     private List<String> players;
 
-    private final String[][] board = new String[3][3];
+    private final String[][] board = new String[9][9];
     private int turnIndex = 0;
     private String winner;
+    private String[] qizi = {"B", "W"};
 
     // ===== GameModule =====
 
     @Override
     public String gameId() {
-        return "tictactoe";
+        return "wuziqi";
     }
 
     @Override
@@ -59,21 +64,22 @@ public class GoGame
 
     // ===== TurnBasedGame =====
 
-    /**
-     *  '''
-     *   {"type":"", }
-     * @param userId
-     * @param action
-     */
     @Override
     public void applyAction(String userId, Object action) {
         Map<?, ?> map = (Map<?, ?>) action;
         String type = (String) map.get("type");
         if(type.equals("move")){
             int[] postion = (int[]) map.get("postion");
+            move(userId, postion);
         }
 
+    }
 
+    private void move(String userId, int[] postion){
+        int x = postion[0];
+        int y = postion[1];
+        if (board[x][y] != null) return;
+        board[x][y] = qizi[turnIndex];
         if (checkWin(userId)) {
             winner = userId;
         } else {
@@ -102,7 +108,7 @@ public class GoGame
     // ===== internal =====
 
     public String currentPlayer() {
-        return players.get(Math.min(turnIndex, players.size()-1));
+        return players.get(turnIndex);
     }
 
     @Override
@@ -122,19 +128,7 @@ public class GoGame
     }
 
     private boolean checkWin(String userId) {
-        for (int i = 0; i < 3; i++) {
-            if (userId.equals(board[i][0]) &&
-                    userId.equals(board[i][1]) &&
-                    userId.equals(board[i][2])) return true;
-
-            if (userId.equals(board[0][i]) &&
-                    userId.equals(board[1][i]) &&
-                    userId.equals(board[2][i])) return true;
-        }
-
-        return userId.equals(board[0][0]) &&
-                userId.equals(board[1][1]) &&
-                userId.equals(board[2][2]);
+        return false;
     }
 }
 

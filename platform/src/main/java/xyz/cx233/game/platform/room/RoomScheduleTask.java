@@ -38,8 +38,10 @@ public class RoomScheduleTask {
 
     @Scheduled(fixedRate = 10_000)
     public void sync(){
+        log.info("定时同步房间状态...");
         for (Room room : roomManager.allRooms()) {
             try {
+                log.info("同步房间状态room:{}",room);
                 broadcastRoom(room);
             } catch (Exception e) {
                 log.error("同步房间状态异常",e);

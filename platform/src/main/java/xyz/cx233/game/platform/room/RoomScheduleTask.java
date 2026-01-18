@@ -53,7 +53,7 @@ public class RoomScheduleTask {
     public void broadcastRoom(Room room) throws Exception {
         GameRuntime gameRuntime = gameManager.getGame(room.getRoomId());
         Object snapshot = null;
-        if(Optional.ofNullable(gameRuntime.getGame()).
+        if(Optional.ofNullable(gameRuntime).map(GameRuntime::getGame).
                 filter(game->game instanceof SnapshotAwareGame).isPresent()){
             SnapshotAwareGame snapshotAwareGame = (SnapshotAwareGame) gameRuntime.getGame();
             snapshot = snapshotAwareGame.snapshot();

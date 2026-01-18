@@ -14,6 +14,6 @@ public class WsMessage {
     private String roomId;
     private String userId;
     private String gameId;
-
+    private Integer version;
     private Object payload;
 }

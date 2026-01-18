@@ -1,8 +1,10 @@
 package xyz.cx233.game.platform.game;
 
+import java.util.Map;
+
 public interface GameBroadcaster {
 
-    void broadcast(Object gameState);
+    void broadcast(Map<String, Object> gameState);
 
     void sendTo(String userId, Object msg);
 

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Data
 public class Room {
-
+    private int version = 0;
     private final String roomId;
     private final String ownerId;
     private RoomState state = RoomState.WAITING;
@@ -90,5 +90,9 @@ public class Room {
 
     public boolean hasPlayer(String userId) {
         return players.containsKey(userId);
+    }
+
+    public int change(){
+        return ++version;
     }
 }

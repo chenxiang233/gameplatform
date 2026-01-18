@@ -32,7 +32,7 @@ public class LeaveRoomHandler implements WsHandler {
             roomManager.removeRoom(roomId);
             return;
         }
-
+        room.change();
         roomManager.broadcastRoomState(room);
     }
 }

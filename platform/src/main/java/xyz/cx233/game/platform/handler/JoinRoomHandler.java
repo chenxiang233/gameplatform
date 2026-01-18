@@ -50,6 +50,7 @@ public class JoinRoomHandler implements WsHandler {
         }else{
             room.onReconnect(userId, session);
         }
+        room.change();
         roomManager.broadcastRoomState(room);
         GameRuntime runtime = gameManager.getGame(roomId);
         if (runtime != null) {

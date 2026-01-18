@@ -29,7 +29,7 @@ public class ReadyHandler implements WsHandler {
         if (room == null || room.getState() != RoomState.WAITING) return;
 
         room.setReady(userId, ready);
-
+        room.change();
         roomManager.broadcastRoomState(room);
     }
 

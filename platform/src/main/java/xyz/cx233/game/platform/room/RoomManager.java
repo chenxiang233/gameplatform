@@ -3,6 +3,7 @@ package xyz.cx233.game.platform.room;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
+import xyz.cx233.game.platform.game.GameManager;
 import xyz.cx233.game.platform.protocol.WsMessage;
 import xyz.cx233.game.platform.protocol.WsType;
 
@@ -49,6 +50,7 @@ public class RoomManager {
         msg.setType(WsType.ROOM_STATE);
         msg.setRoomId(room.getRoomId());
         msg.setPayload(payload);
+        msg.setVersion(room.getVersion());
 
         String json = mapper.writeValueAsString(msg);
 

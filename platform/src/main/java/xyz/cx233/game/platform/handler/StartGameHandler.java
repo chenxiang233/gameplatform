@@ -55,6 +55,7 @@ public class StartGameHandler implements WsHandler {
             return;
         }
         room.setState(RoomState.PLAYING);
+        room.change();
         broadcastGameStart(room);
 
     }
@@ -64,7 +65,7 @@ public class StartGameHandler implements WsHandler {
         WsMessage msg = new WsMessage();
         msg.setType(WsType.START_GAME);
         msg.setRoomId(room.getRoomId());
-
+        msg.setVersion(room.getVersion());
         String json = mapper.writeValueAsString(msg);
 
         for (Player p : room.allPlayers()) {

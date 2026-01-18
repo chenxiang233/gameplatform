@@ -23,10 +23,9 @@ public class GameActionHandler implements WsHandler {
 
         String roomId = message.getRoomId();
         String userId = message.getUserId();
-
         GameRuntime runtime = gameManager.getGame(roomId);
         if (runtime == null) return;
-
+        runtime.getRoom().change();
         runtime.getGame().onPlayerAction(
                 userId,
                 message.getPayload()

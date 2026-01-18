@@ -17,8 +17,9 @@ public class WsGameBroadcaster implements GameBroadcaster {
     }
 
     @Override
-    public void broadcast(Object gameState) {
+    public void broadcast(Map<String, Object> gameState) {
         try {
+            gameState.put("version", room.getVersion());
             String json = mapper.writeValueAsString(gameState);
             for (Player p : room.allPlayers()) {
                 p.getSession().sendMessage(new TextMessage(json));
@@ -43,6 +44,7 @@ public class WsGameBroadcaster implements GameBroadcaster {
 
     /**
      * 发送游戏快照
+     *
      * @param gameType 游戏类型
      * @param snapshot 游戏快照
      */

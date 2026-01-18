@@ -2,9 +2,28 @@ spring:
     application.name: gameplatform
 server:
     port: 14527
-#
-#    ssl:
-#        key-store: classpath:game.cx233.xyz.pfx
-#        key-store-password: bayud1630
-#        key-store-type: PKCS12
-#        key-alias: tomcat
+
+
+logging:
+    # =========================
+    # 日志级别配置
+    # =========================
+    level:
+        root: INFO           # 根日志级别
+        org.springframework: WARN # 降低 Spring 框架本身的日志量
+        org.mybatis: DEBUG   # 如果用了 MyBatis，开启 SQL 打印
+
+    # =========================
+    # 文件输出配置
+    # =========================
+    file:
+        name: logs/app.log   # 日志文件保存路径和名称
+
+    # =========================
+    # 输出格式配置
+    # =========================
+    pattern:
+        # 控制台输出格式（带颜色）
+        console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+        # 文件输出格式
+        file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger"

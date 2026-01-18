@@ -34,7 +34,6 @@ public class Wuziqi
     public void onStart(GameContext context, GameBroadcaster broadcaster) {
         this.broadcaster = broadcaster;
         this.players = context.getPlayerIds();
-
         // 初始快照
         broadcastSnapshot();
     }

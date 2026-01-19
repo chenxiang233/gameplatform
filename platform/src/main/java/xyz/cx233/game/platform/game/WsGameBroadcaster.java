@@ -1,5 +1,6 @@
 package xyz.cx233.game.platform.game;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import xyz.cx233.game.platform.room.Player;
 import xyz.cx233.game.platform.room.Room;
@@ -21,16 +22,17 @@ public class WsGameBroadcaster implements GameBroadcaster {
     @Override
     public void broadcast(Map<String, Object> gameState) {
         log.info("发送快照,room信息:{}", room);
+        gameState.put("version", room.getVersion());
+        String json = null;
         try {
-            gameState.put("version", room.getVersion());
-            String json = mapper.writeValueAsString(gameState);
-            for (Player p : room.allPlayers()) {
-                p.sendMessage(json);
-            }
-        } catch (Exception e) {
-
-            // log
+            json = mapper.writeValueAsString(gameState);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
+        for (Player p : room.allPlayers()) {
+            p.sendMessage(json);
+        }
+
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Player {
     private boolean connected;
     private long lastSeen;
 
-    public void sendMessage(String jsonMsg) throws IOException {
+    public void sendMessage(String jsonMsg) {
         if(isConnected()){
             try {
                 session.sendMessage(new TextMessage(jsonMsg));

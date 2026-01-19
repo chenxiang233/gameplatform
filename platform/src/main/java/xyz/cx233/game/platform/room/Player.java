@@ -1,5 +1,6 @@
 package xyz.cx233.game.platform.room;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ public class Player {
     private String imageUrl;
     private WebSocketSession session;
     private boolean ready;
+    @JsonIgnore
     private Room room;
     private boolean connected;
     private long lastSeen;

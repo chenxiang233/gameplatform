@@ -46,7 +46,7 @@ public class JoinRoomHandler implements WsHandler {
 
         if (!room.contains(userId)) {
             room.addPlayer(new Player(userId, authService.getUser(userId).getImageUrl(),
-                    session, false, true, System.currentTimeMillis()));
+                    session, false, room, true, System.currentTimeMillis()));
         }else{
             room.onReconnect(userId, session);
         }

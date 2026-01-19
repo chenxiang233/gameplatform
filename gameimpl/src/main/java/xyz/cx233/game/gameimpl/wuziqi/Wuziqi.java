@@ -67,24 +67,27 @@ public class Wuziqi
     public void applyAction(String userId, Object action) {
         Map<?, ?> map = (Map<?, ?>) action;
         String type = (String) map.get("type");
+        boolean change = false;
         if(type.equals("move")){
             List<Integer> position = (List<Integer>) map.get("position");
-            move(userId, position);
+            change = move(userId, position);
         }
-
+        if(change){
+            broadcastSnapshot();
+        }
     }
 
-    private void move(String userId, List<Integer> position){
+    private boolean move(String userId, List<Integer> position){
         int x = position.get(0);
         int y = position.get(1);
-        if (board[x][y] != null) return;
+        if (board[x][y] != null) return false;
         board[x][y] = qizi[turnIndex];
         if (checkWin(userId)) {
             winner = userId;
         } else {
             turnIndex = 1 - turnIndex;
         }
-        broadcastSnapshot();
+        return true;
     }
 
     // ===== SnapshotAwareGame =====

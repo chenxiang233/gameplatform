@@ -16,7 +16,7 @@ public class Player {
     private String imageUrl;
     private WebSocketSession session;
     private boolean ready;
-
+    private Room room;
     private boolean connected;
     private long lastSeen;
 
@@ -25,8 +25,10 @@ public class Player {
             try {
                 session.sendMessage(new TextMessage(jsonMsg));
             }catch (Exception e){
-                log.error("发送失败，player:{}",userId, e);
+                log.error("发送失败，player:{}", userId, e);
+                room.onDisconnect(userId);
             }
         }
     }
+
 }

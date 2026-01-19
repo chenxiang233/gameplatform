@@ -25,6 +25,7 @@ public class WsGameBroadcaster implements GameBroadcaster {
                 p.sendMessage(json);
             }
         } catch (Exception e) {
+
             // log
         }
     }

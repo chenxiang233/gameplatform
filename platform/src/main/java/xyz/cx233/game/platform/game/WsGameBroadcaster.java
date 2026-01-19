@@ -1,5 +1,6 @@
 package xyz.cx233.game.platform.game;
 
+import lombok.extern.slf4j.Slf4j;
 import xyz.cx233.game.platform.room.Player;
 import xyz.cx233.game.platform.room.Room;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +8,7 @@ import org.springframework.web.socket.TextMessage;
 
 import java.util.Map;
 
+@Slf4j
 public class WsGameBroadcaster implements GameBroadcaster {
 
     private final Room room;
@@ -18,6 +20,7 @@ public class WsGameBroadcaster implements GameBroadcaster {
 
     @Override
     public void broadcast(Map<String, Object> gameState) {
+        log.info("发送快照,room信息:{}", room);
         try {
             gameState.put("version", room.getVersion());
             String json = mapper.writeValueAsString(gameState);

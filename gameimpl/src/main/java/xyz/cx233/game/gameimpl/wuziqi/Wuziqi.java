@@ -120,13 +120,15 @@ public class Wuziqi
 
     @Override
     public void broadcastSnapshot() {
-        broadcaster.broadcast(Map.of(
+        Map<String, Object> snapShotMsg = Map.of(
                 "type", "GAME_SNAPSHOT",
                 "payload", Map.of(
                         "gameType", gameId(),
                         "state", snapshot()
                 )
-        ));
+        );
+        log.info("发送游戏快照{}", snapShotMsg);
+        broadcaster.broadcast(snapShotMsg);
     }
 
     private boolean checkWin(String userId) {

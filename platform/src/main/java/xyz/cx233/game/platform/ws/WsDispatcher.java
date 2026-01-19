@@ -2,6 +2,7 @@ package xyz.cx233.game.platform.ws;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import xyz.cx233.game.platform.handler.*;
 import xyz.cx233.game.platform.protocol.WsMessage;
@@ -10,6 +11,7 @@ import xyz.cx233.game.platform.protocol.WsType;
 import java.util.EnumMap;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class WsDispatcher {
 
@@ -37,6 +39,9 @@ public class WsDispatcher {
             message.setUserId(session.getUserId());
 
             WsHandler handler = handlers.get(message.getType());
+            if(message.getType()!=WsType.PING){
+                log.info("[ws-client] dispatch message:{}",message);
+            }
             if (handler == null) {
                 return;
             }

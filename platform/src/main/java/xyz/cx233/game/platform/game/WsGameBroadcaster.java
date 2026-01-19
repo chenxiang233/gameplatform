@@ -7,6 +7,7 @@ import xyz.cx233.game.platform.room.Room;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.socket.TextMessage;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
@@ -21,7 +22,7 @@ public class WsGameBroadcaster implements GameBroadcaster {
 
     @Override
     public void broadcast(Map<String, Object> gameState) {
-        log.info("发送快照,room信息:{}", room);
+        gameState = new HashMap<>(gameState);
         gameState.put("version", room.getVersion());
         String json = null;
         try {

@@ -12,7 +12,7 @@ public enum WsType {
     QUERY_USER,
     READY,
     START_GAME,
-    GAME_START,
+    STOP_GAME,
 
     GAME_ACTION,   // 玩家操作
     GAME_SYNC,     // 服务端同步

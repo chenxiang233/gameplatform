@@ -29,7 +29,6 @@ public class GameManager {
                         .toList()
         );
         module.onStart(context, new WsGameBroadcaster(room));
-
         runningGames.put(room.getRoomId(),
                 new GameRuntime(room, module));
     }

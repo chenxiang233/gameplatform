@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import xyz.cx233.game.platform.exception.BaseException;
-import xyz.cx233.game.platform.game.GameBroadcaster;
 import xyz.cx233.game.platform.game.GameManager;
-import xyz.cx233.game.platform.game.WsGameBroadcaster;
 import xyz.cx233.game.platform.protocol.WsMessage;
 import xyz.cx233.game.platform.protocol.WsType;
 import xyz.cx233.game.platform.room.Player;
@@ -16,14 +14,14 @@ import xyz.cx233.game.platform.room.RoomManager;
 import xyz.cx233.game.platform.room.RoomState;
 
 @Component
-public class StartGameHandler implements WsHandler {
+public class StopGameHandler implements WsHandler {
 
     private final RoomManager roomManager;
     private final ObjectMapper mapper = new ObjectMapper();
     private final GameManager gameManager;
 
-    public StartGameHandler(RoomManager roomManager,
-                            GameManager gameManager) {
+    public StopGameHandler(RoomManager roomManager,
+                           GameManager gameManager) {
         this.roomManager = roomManager;
         this.gameManager = gameManager;
 
@@ -41,33 +39,32 @@ public class StartGameHandler implements WsHandler {
 
         // ① 房主校验
         if (!room.isOwner(userId)) {
-            sendError(session, "房主点击开始游戏");
+            sendError(session, "房主点击");
             return;
         }
 
         // ② 状态校验
-        if (room.getState() != RoomState.WAITING) return;
+        if (room.getState() != RoomState.PLAYING) return;
         // ④ 状态切换
         try {
-            gameManager.startGame(room, gameId);
+            gameManager.stopGame(roomId);
         } catch (BaseException e) {
             sendError(session, e.getMessage());
             return;
         }
-        room.setState(RoomState.PLAYING);
+        room.setState(RoomState.WAITING);
         room.change();
-        broadcastGameStart(room);
+        broadcastGameStop(room);
 
     }
 
-    private void broadcastGameStart(Room room) throws Exception {
+    private void broadcastGameStop(Room room) throws Exception {
 
         WsMessage msg = new WsMessage();
-        msg.setType(WsType.START_GAME);
+        msg.setType(WsType.STOP_GAME);
         msg.setRoomId(room.getRoomId());
         msg.setVersion(room.getVersion());
         String json = mapper.writeValueAsString(msg);
-
         for (Player p : room.allPlayers()) {
             p.sendMessage(json);
         }

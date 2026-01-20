@@ -7,6 +7,7 @@ import xyz.cx233.game.platform.game.api.SnapshotAwareGame;
 import xyz.cx233.game.platform.game.api.TurnBasedGame;
 import xyz.cx233.game.platform.game.GameBroadcaster;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,11 @@ public class Wuziqi
     private int turnIndex = 0;
     private String winner;
     private final String[] qizi = {"B", "W"};
-
+    private Map<?, ?> gameParams;
     public Wuziqi(){
-        this.board = new String[9][9];
+        this(Map.of(
+                "boardSize", List.of(9, 9)
+        ));
     }
     /**
      * {
@@ -34,10 +37,11 @@ public class Wuziqi
      */
     // ===== GameModule =====
     public Wuziqi(Object params){
-        if (params == null) {
-            return;
-        }
-        Map<String, Object> gameParams = (Map<String, Object>) params;
+        this.gameParams = (Map<?, ?>)params;
+        init(params);
+    }
+
+    private void init(Object params){
         this.board = new String[((List<Integer>) gameParams.get("boardSize")).get(0)][((List<Integer>) gameParams.get("boardSize")).get(1)];
     }
 
@@ -73,6 +77,8 @@ public class Wuziqi
     public void onStop() {
         // 资源清理（如有）
     }
+
+
 
     @Override
     public GameBroadcaster getBroadcaster() {
@@ -150,7 +156,7 @@ public class Wuziqi
     }
 
     private boolean checkWin(String userId) {
-        return false;
+        return board[0][0] != null;
     }
 }
 

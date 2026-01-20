@@ -31,6 +31,7 @@ public class RoomScheduleTask {
         for (Room room : roomManager.allRooms()) {
             room.sweepOffline(600_000);
             if (room.allPlayers().isEmpty()) {
+                gameManager.stopGame(room.getRoomId());
                 roomManager.removeRoom(room.getRoomId());
             }
         }

@@ -18,12 +18,30 @@ public class Wuziqi
     private GameBroadcaster broadcaster;
     private List<String> players;
 
-    private final String[][] board = new String[9][9];
+    private String[][] board;
     private int turnIndex = 0;
     private String winner;
-    private String[] qizi = {"B", "W"};
+    private final String[] qizi = {"B", "W"};
 
+    public Wuziqi(){
+        this.board = new String[9][9];
+    }
+    /**
+     * {
+     *     "boardSize": [9, 9]
+     * }
+     * @param params
+     */
     // ===== GameModule =====
+    public Wuziqi(Object params){
+        if (params == null) {
+            return;
+        }
+        Map<String, Object> gameParams = (Map<String, Object>) params;
+        this.board = new String[((List<Integer>) gameParams.get("boardSize")).get(0)][((List<Integer>) gameParams.get("boardSize")).get(1)];
+    }
+
+
 
     @Override
     public String gameId() {

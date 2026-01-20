@@ -27,6 +27,11 @@ public class WuziqiFactory implements GameModuleFactory {
     }
 
     @Override
+    public GameModule create(Object params) {
+        return new Wuziqi(params);
+    }
+
+    @Override
     public void gameStartCheck(Room room) {
         allReadyCheck(room);
         minPlayersCheck(room, MIN_PLAYERS);

@@ -9,6 +9,14 @@ public interface GameModuleFactory {
     String gameId();
 
     GameModule create();
+    /**
+     * 创建游戏模块
+     * @param params 游戏参数
+     * @return
+     */
+    default  GameModule create(Object params){
+        return create();
+    }
 
     void gameStartCheck(Room room);
 

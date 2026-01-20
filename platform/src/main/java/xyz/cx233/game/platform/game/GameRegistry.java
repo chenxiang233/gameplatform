@@ -17,6 +17,11 @@ public class GameRegistry {
         factories.put(factory.gameId(), factory);
     }
 
+
+    public GameModule create(String gameId, Object params) {
+        return getFactory(gameId).create(params);
+    }
+
     public GameModule create(String gameId) {
         return getFactory(gameId).create();
     }

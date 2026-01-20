@@ -106,7 +106,7 @@ public class Wuziqi
         int y = position.get(1);
         if (board[x][y] != null) return false;
         board[x][y] = qizi[turnIndex];
-        if (checkWin(userId)) {
+        if (checkWin(userId, x, y)) {
             winner = userId;
         } else {
             turnIndex = 1 - turnIndex;
@@ -155,8 +155,84 @@ public class Wuziqi
         broadcaster.broadcast(snapShotMsg);
     }
 
-    private boolean checkWin(String userId) {
-        return board[0][0] != null;
+    private boolean checkWin(String userId, int x, int y) {
+        return isWinningMove(board, x, y);
+    }
+
+    /**
+     * 判断当前落子是否形成五连珠
+     * @param board 棋盘数组，null表示空位，'W'表示白子，'B'表示黑子
+     * @param x 当前落子的x坐标
+     * @param y 当前落子的y坐标
+     * @return 是否形成五连珠
+     */
+    public boolean isWinningMove(String[][] board, int x, int y) {
+        // 边界检查
+        if (board == null || x < 0 || y < 0 || x >= board.length || y >= board[0].length) {
+            return false;
+        }
+
+        // 获取当前落子颜色
+        String color = board[x][y];
+        if (color == null) {
+            return false; // 空位不可能赢
+        }
+
+        // 定义四个检查方向：水平、垂直、左斜线、右斜线
+        int[][] directions = {{1, 0}, {0, 1}, {1, 1}, {1, -1}};
+
+        // 检查每个方向
+        for (int[] dir : directions) {
+            int count = 1; // 从1开始，因为当前点已经算一个
+
+            // 检查正方向
+            count += countConsecutive(board, x, y, dir[0], dir[1], color);
+
+            // 检查反方向
+            count += countConsecutive(board, x, y, -dir[0], -dir[1], color);
+
+            // 如果任意方向达到5个连续，则获胜
+            if (count >= 5) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 辅助方法：计算指定方向上的连续同色棋子数量
+     * @param board 棋盘数组
+     * @param x 起始x坐标
+     * @param y 起始y坐标
+     * @param dx x方向增量
+     * @param dy y方向增量
+     * @param color 目标颜色
+     * @return 连续同色棋子数量
+     */
+    private int countConsecutive(String[][] board, int x, int y, int dx, int dy, String color) {
+        int count = 0;
+        int i = x + dx;
+        int j = y + dy;
+
+        // 沿指定方向检查，最多检查4步（因为五子棋只需要5个连续）
+        for (int step = 0; step < 4; step++) {
+            // 检查边界
+            if (i < 0 || i >= board.length || j < 0 || j >= board[0].length) {
+                break;
+            }
+
+            // 检查是否为同色棋子
+            if (board[i][j] != null && board[i][j].equals(color)) {
+                count++;
+                i += dx;
+                j += dy;
+            } else {
+                break; // 遇到不同颜色或空位，停止计数
+            }
+        }
+
+        return count;
     }
 }
 

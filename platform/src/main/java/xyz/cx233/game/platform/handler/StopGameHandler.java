@@ -33,7 +33,6 @@ public class StopGameHandler implements WsHandler {
 
         String userId = message.getUserId();
         String roomId = message.getRoomId();
-        String gameId = message.getGameId();
         Room room = roomManager.getRoom(roomId);
         if (room == null) return;
 

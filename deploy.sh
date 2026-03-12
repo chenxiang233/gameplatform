@@ -8,10 +8,10 @@ echo "Build jar..."
 mvn clean package -DskipTests
 
 echo "Build docker image..."
-docker build -t game-server .
+sudo docker build -t game-server .
 
 echo "Restart services..."
-docker compose down
-docker compose up -d
+sudo docker compose down
+sudo docker compose up -d
 
 echo "Deploy done."
